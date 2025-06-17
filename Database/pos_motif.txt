@@ -1,0 +1,202 @@
+MERCI - Summary of options:
+ -p    ../fasta/8_Train_posMERCI.fa
+ -n    ../fasta/9_Train_negMERCI.fa
+ -k 	  100
+ -fp   1
+ -fn   0
+ -o    posK100_motif
+ -l    10000
+ -s    10000
+ -c    NONE
+ -g    0
+ -gl   1
+ -para 0
+
+
+Motifs:
+ Y C E D
+ A N Y I
+ P E V L E
+ Q G Q W
+ S G K C
+ D T G Y
+ F D R G
+ N Y G F
+ C L N G G
+ C N N P
+ G H Y A
+ C L P G F
+ D T Y A
+ K D G K L
+ T C A D
+ V Y R I
+ W S E W S
+ C Q H G
+ D H V R
+ D I N E C
+ D V N D N A
+ D V N D N A P
+ E A Y T
+ G W L Y
+ R E E V E
+ V N D N A
+ V N D N A P
+ W D T A G Q
+ A Q H I
+ E T Y C
+ N G A T C
+ S C W A
+ V Y T Y
+ W D T A G Q E
+ Y I A P
+ A E A L I
+ A V D A D
+ C Q I T
+ C T C K
+ D R M G
+ G M D K
+ G N Y S C
+ G R C H
+ G T Y R C
+ I G G L L
+ K F Y P
+ K L N E A
+ L Q K L Y
+ L S V E V
+ M G Y M
+ P A Q W
+ Q L S E K
+ T H Y Q
+ T P S G S
+ V A V S V
+ V D E C A
+ V I L V L
+ V W S F G
+ Y S N W
+ A G Q E R
+ C G P P P
+ C P D G S
+ C P P G Y
+ D E G V Y
+ D K M F
+ D V W S F
+ D V W S F G
+ E D Q W
+ G E C N
+ H N T Y
+ I Q E A E
+ K G E W
+ L E S N L
+ L P G V L
+ M R A N
+ N G G C S
+ P C P P G
+ P V P A T
+ R N L T E
+ R V V L V
+ S A C Y
+ S D V W S F
+ S D V W S F G
+ S G N E E
+ S I P L T
+ T E T T K
+ T V R A L
+ T V S V S
+ V G I V G
+ A G Q E R F
+ A G Y T G
+ A K E L A
+ A V K L N
+ C H C Q
+ C P F R
+ C W C V
+ D A D E G
+ D A W V
+ D G R L Q
+ D G R V V
+ D M F I
+ D T A G Q E R
+ E C A I
+ E C D C
+ E E A E N
+ E E V E T
+ E F Y F
+ E G R A L
+ E G T Y T
+ E K A K T
+ E Q L K D
+ E Q W I
+ F G P T L
+ F N Y K
+ F Y F K
+ G C Q K
+ G E H N
+ G M Y D
+ G N K C
+ G P Y K
+ G Q A A E
+ G V M I
+ H N D I
+ H Y W E V
+ I D E C A
+ I I T W
+ I L D L E
+ I N D N P
+ I S A L I
+ K G H C
+ K Y K M
+ L A V V D
+ L C E E L
+ L C L L S
+ L D A A K
+ L D E E T
+ L D I N D N
+ L E Q E Q
+ L G G F A
+ L G R T L
+ L L Y V L
+ L N L L R
+ L P A V F
+ L P Q E E
+ L T L L W
+ M Y V A
+ N P H D
+ N Q L L E
+ P C L N G
+ P P L P P G
+ P T M G
+ Q A L E S
+ Q C E P
+ Q L K E V
+ Q T W H
+ R E C T
+ R G I I P
+ R G L A V
+ S K S L G
+ S L L T Q
+ S Q Q L E
+ T A G Q E R
+ T K E E I
+ T T T R R
+ V C N P
+ V C V Y
+ V D A V I
+ V E L E D
+ V G A V A
+ V G E K G
+ V L L T T
+ V L S G D
+ V L V G V
+ V P K P R
+ V Q K G E
+ V Q Q L K
+ V R V G G
+ V T V E T
+ W D T A G Q E R
+ W G E C
+ W G F G
+ W I R V
+ W T N L
+ Y S A H
+ Y T C V A
+ Y W T D

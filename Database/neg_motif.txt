@@ -1,0 +1,174 @@
+MERCI - Summary of options:
+ -p    ../fasta/9_Train_negMERCI.fa
+ -n    ../fasta/8_Train_posMERCI.fa
+ -k 	  100
+ -fp   1
+ -fn   0
+ -o    negK100_motif
+ -l    10000
+ -s    10000
+ -c    NONE
+ -g    0
+ -gl   1
+ -para 0
+
+
+Motifs:
+ I W F Q N
+ I W F Q N R
+ I W F Q N R R
+ K I W F Q
+ K I W F Q N
+ K I W F Q N R
+ K I W F Q N R R
+ H H H H H P
+ H T G E R P F
+ T G E R P F
+ H L R T H
+ Q V K I W F Q
+ Q V K I W F Q N
+ Q V K I W F Q N R
+ Q V K I W F Q N R R
+ R S D H L
+ V K I W F Q
+ V K I W F Q N
+ V K I W F Q N R
+ V K I W F Q N R R
+ Q N R R M
+ V K E E P
+ A A A A A A A A A S
+ C G K R F
+ F Q N R R M
+ F Q N R R M K
+ Q N R R M K
+ R H N L S L
+ W F Q N R R M
+ W F Q N R R M K
+ A R P R R
+ E D E D E E E
+ K M R T
+ P L P L R
+ P S S S S S S S
+ Q E E E E A
+ Q F S H
+ R A R S R
+ R S H T G E
+ R T A F T
+ S S D S E S
+ A A A A A A A A A A S
+ C N I C G
+ E N E K K
+ G S Q G A
+ K G H K R
+ P A A A A A A A A
+ P M N A F
+ P P P Q H
+ R P M N A
+ R P M N A F
+ S A S S S S S
+ A A A A A A A A A A A S
+ A A P G P G
+ A A V A A A A A
+ A K R L R
+ A Q G S P
+ A R G G A
+ C P E C G
+ D D F L E
+ G S G A G G
+ H H H H H H P
+ H L R T H T
+ H N L S L N
+ K R F M
+ K R R R S
+ K S R E K
+ L K T L G
+ L L I L K
+ L P G T R
+ L S S S S S S
+ N S I R H
+ P M N A F M
+ R F K C
+ R H N L S L N
+ R K I L E
+ R L P F L
+ R P F K C
+ R P M N A F M
+ R P Y K C
+ S G D K E
+ S I R H N
+ S I R H N L
+ S I R H N L S
+ S L S A F
+ S S P P P P
+ S S S S S S S P
+ S S S T H
+ T D L S L
+ T H L L A
+ T L Q L P
+ V H H R
+ A A A P G P
+ A A D S L
+ A C S S A
+ A E L L I
+ A G A A A A A
+ A G A G P G
+ A P L G K
+ A P T G G
+ A Q P A L
+ A R K E R
+ C G I C G
+ D Q T H
+ E E D E E G
+ E E E S E S
+ E K E K H
+ E L E K E F
+ E Q S L R
+ E T P P S
+ G G G G S G A
+ G S A Q P
+ G S G G S G G
+ H H H H H H H P
+ H L R R H
+ H L R T H T G
+ H L R T H T G E
+ I R H N L S L
+ I W F Q N R R M
+ I W F Q N R R M K
+ K I W F Q N R R M
+ K I W F Q N R R M K
+ L L G M Q
+ L Q P L T
+ L Q Q V T
+ L R T H T G
+ L R T H T G E
+ L S D S A
+ L T E R Q
+ N E R L L
+ N S I R H N
+ N S I R H N L
+ N S I R H N L S
+ N S I R H N L S L
+ P G A P K
+ P L V R S
+ P P S P A P
+ P Q E A L
+ P W R Q
+ Q A S A P
+ Q D L L G
+ Q L P S E
+ Q P Q Q Q Q
+ R K R A S
+ R P A A S
+ R S H T G E R
+ R S H T G E R P
+ R V M A A
+ S A L H P
+ S C S K S
+ S H T G E R
+ S H T G E R P
+ S I R H N L S L
+ S K P K S
+ S P G N S
+ S S S S S K
+ T S Q S V
+ V F Y C

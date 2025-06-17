@@ -1,0 +1,22 @@
+{
+  "version": "1.2",
+  "dbname": "data",
+  "dbtype": "Protein",
+  "db-version": 5,
+  "description": "4_Train_dataAlt_blast.fa",
+  "number-of-letters": 5028365,
+  "number-of-sequences": 8472,
+  "last-updated": "2025-05-30T15:57:00",
+  "number-of-volumes": 1,
+  "bytes-total": 5888722,
+  "bytes-to-cache": 5104718,
+  "files": [
+    "data.pdb",
+    "data.phr",
+    "data.pin",
+    "data.pot",
+    "data.psq",
+    "data.ptf",
+    "data.pto"
+  ]
+}
