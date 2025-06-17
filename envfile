@@ -1,0 +1,8 @@
+#Path information for BLAST and MERCI commands
+#Path information of the data required to run the BLAST and MERCI
+#User can change the paths according to their machines
+BLAST:blastp
+BLAST database:./Database/data
+MERCI:./progs/MERCI_motif_locator.pl
+MERCI positive motif file:./Database/pos_motif.txt
+MERCI negative motif file:./Database/neg_motif.txt
