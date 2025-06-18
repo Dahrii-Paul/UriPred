@@ -44,7 +44,7 @@ def aac_comp(file,out):
                 temp1 = k
                 if temp1 == i:
                     count += 1
-                composition = (count/len(j))*100
+                composition = (count/len(j))
             cc.append(composition)
         dd.append(cc)
     df2 = pd.DataFrame(dd)
