@@ -16,7 +16,7 @@ uripred -h
 
 # Standalone
 
-Standalone version of ToxinPred2 is written in python3 and the following libraries are necessary for a successful run:
+Standalone version of UriPred is written in python3 and the following libraries are necessary for a successful run:
 
 - pycaret
 - scikit-learn
@@ -40,7 +40,7 @@ where protein.fa is a input FASTA file. This will predict urinary proteins in FA
 **Full Usage**: 
 ```
 Following is complete list of all options, you may get these options
-usage: toxinpred2.py [-h] 
+usage: uripred.py [-h] 
                      [-i INPUT]
                      [-o OUTPUT]
                      [-t THRESHOLD]
@@ -72,7 +72,7 @@ optional arguments:
 
 **Output File**: Program will save result in CSV format, in case user do not provide output file name, it will be stored in outfile.csv.
 
-**Threshold**: User should provide threshold between 0 and 1, please note score is proportional to toxic potential of peptide.
+**Threshold**: User should provide threshold between 0 and 1, please note score is proportional to urinary potential of proteins/peptide.
 
 **Models**: In this program, two models have been incorporated;  
   i) Model1 for predicting given input peptide/protein sequence as urinary and non-urinary peptide/proteins using SVM-RBF based on amino-acid composition of the peptide/proteins; 
