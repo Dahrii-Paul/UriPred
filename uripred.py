@@ -1,5 +1,5 @@
 #====================================================================================================
-# UriPred: A tool for predicting urinary and non-urinary proteins from their primary sequence.
+# UriPred (Urinary Protein Predictor): A tool for predicting urinary and non-urinary proteins from their primary sequence.
 # Developed by Dr. V. Amouda's group
 #====================================================================================================
 import argparse  
@@ -19,8 +19,9 @@ parser = argparse.ArgumentParser(description='Please provide following arguments
 # Read Arguments from command
 parser.add_argument("-i", "--input", type=str, required=True, help="Input: protein or peptide sequence in FASTA format or single sequence per line in single letter code")
 parser.add_argument("-o", "--output",type=str, help="Output: File for saving results by default outfile.csv")
-parser.add_argument("-t","--threshold", type=float, help="Threshold: Value between 0 to 1 by default 0.6")
-parser.add_argument("-m","--model",type=int, choices = [1, 2], help="Model: 1: AAC based SVM-RBF, 2: Hybrid, by default 1")
+parser.add_argument("-t","--threshold", type=float, help="Threshold: Value between 0 to 1 (see default per model below)")
+parser.add_argument("-m","--model",type=int, choices = [1, 2, 3, 4],
+                    help="Model: 1: ML (AAC based SVM-RBF), 2: ML+BLAST, 3: ML+MERCI (positive motif), 4: Hybrid (ML+MERCI+BLAST). By default 1")
 parser.add_argument("-d","--display", type=int, choices = [1,2], help="Display: 1:Urinary, 2: Both Urinary & Non-Urinary, by default 2")
 args = parser.parse_args()
 
@@ -123,7 +124,6 @@ def MERCI_Processor_p(merci_file,merci_processed,name):
         df2.replace(to_replace=r"\)", value='', regex=True, inplace=True)
         df2.replace(to_replace=r'motifs match', value='', regex=True, inplace=True)
         df2.replace(to_replace=r' $', value='', regex=True,inplace=True)
-        #total_hit = int(df2.loc[len(df2)-1]['Seq'].split()[0])  # Not used
         for j in oo:
             if j in df2.Seq.values:
                 jj.append(j)
@@ -191,7 +191,6 @@ def MERCI_Processor_n(merci_file,merci_processed,name):
         df2.replace(to_replace=r"\)", value='', regex=True, inplace=True)
         df2.replace(to_replace=r'motifs match', value='', regex=True, inplace=True)
         df2.replace(to_replace=r' $', value='', regex=True,inplace=True)
-        #total_hit = int(df2.loc[len(df2)-1]['Seq'].split()[0])  # Not used
         for j in oo:
             if j in df2.Seq.values:
                 jj.append(j)
@@ -219,7 +218,7 @@ def Merci_after_processing_n(merci_processed,final_merci_n):
     df5 = df5[['Subject','MERCI Score Neg']]
     df5.to_csv(final_merci_n, index=None)
 
-#---------------------------------BLAST Processor (unchanged)---------------------------------
+#---------------------------------BLAST Processor---------------------------------
 def BLAST_processor(blast_result,blast_processed,name1):
     if os.stat(blast_result).st_size != 0:
         df1 = pd.read_csv(blast_result, sep="\t",header=None)
@@ -266,7 +265,7 @@ def BLAST_processor(blast_result,blast_processed,name1):
         df4.columns = ['Subject','BLAST Score']
     df4.to_csv(blast_processed, index=None)
 
-#--------------------------------- Hybrid (with both MERCI scores) ---------------------------------
+#--------------------------------- Hybrid ---------------------------------
 def hybrid(ML_output,name1,merci_output_p, merci_output_n,blast_output,threshold,final_output):
     df6_2 = pd.read_csv(ML_output,header=None)
     df6_1 = pd.DataFrame(name1)
@@ -325,22 +324,30 @@ if args.output == None:
     result_filename= DEFAULT_OUTPUT_FILENAME
 else:
     result_filename = args.output
-         
-# Threshold 
-if args.threshold == None:
-    Threshold = DEFAULT_THRESHOLD
-else:
-    Threshold= float(args.threshold)
+
 # Model
 if args.model == None:
     Model = DEFAULT_MODEL
 else:
     Model = int(args.model)
+# Threshold 
+# Threshold 
+if args.threshold == None:
+    Threshold = DEFAULT_THRESHOLD
+else:
+    Threshold= float(args.threshold)
 # Display
 if args.display == None:
     dplay = DEFAULT_DISPLAY
 else:
     dplay = int(args.display)
+
+model_map = {
+    1: "ML",
+    2: "ML+BLAST",
+    3: "ML+MERCI (positive motif)",
+    4: "Hybrid (ML+MERCI+BLAST)"
+}
 
 #====================================================================================================
 print(" UriPred: Urinary and Non-Urinary Protein Predictor")
@@ -348,14 +355,14 @@ print(" Developed by Dr. V. Amouda's group")
 print('====================================================================================================')
 print('Parameters Summary:')
 print(f"  Input File:  {args.input}")
-print(f"  Model:       {'Hybrid' if Model == 2 else 'ML'}")
+print(f"  Model:       {model_map.get(Model, Model)}")
 print(f"  Threshold:   {Threshold}")
 print(f"  Display:     {'Urinary Only' if dplay == 1 else 'Both Urinary & Non-Urinary'}")
 print(f"  Output File: {result_filename}")
 print('====================================================================================================')
 
 #================================ Prediction Module start from here ================================
-if Model==1:
+if Model==1: # ML
     print("Running ML model...")
     aac_comp(seq,'seq.aac')
     os.system("perl -pi -e 's/,$//g' seq.aac")
@@ -374,7 +381,109 @@ if Model==1:
     os.remove('seq.aac')
     os.remove('seq.pred')
     os.remove('seq.out')
-else:
+    os.remove('Sequence_1')
+    os.remove('logs.log')
+
+elif Model==2:  # ML+BLAST
+    print("Running ML+BLAST model...")
+    if os.path.exists('envfile'):
+        with open('envfile', 'r') as file:
+            data = file.readlines()
+        output = []
+        for line in data:
+            if not "#" in line:
+                output.append(line)
+        if len(output) >= 2: 
+            blastp = output[0].split(':',1)[1].strip()
+            blastdb = output[1].split(':',1)[1].strip()
+        else:
+            print("====================================================================================================")
+            print("Error: Please provide paths for BLAST and required files", file=sys.stderr)
+            print("====================================================================================================")
+            sys.exit()
+    else:
+        print("====================================================================================================")
+        print("Error: Please provide the '{}', which comprises paths for BLAST".format('envfile'), file=sys.stderr)
+        print("====================================================================================================")
+        sys.exit()
+    aac_comp(seq,'seq.aac')
+    os.system("perl -pi -e 's/,$//g' seq.aac")
+    standardize_aac('seq.aac', 'seq.aac')
+    prediction('seq.aac','./progs/SVM_model','seq.pred')
+    print("Running BLAST...")
+    os.system(f"{blastp} -task blastp -db {blastdb} -query Sequence_1 -out RES_1_6_6.out -outfmt 6 -evalue 0.000001")
+    BLAST_processor('RES_1_6_6.out','blast_ml_blast.csv',seqid)
+    df_pred = pd.read_csv('seq.pred', header=None, names=['ML_Score'])
+    df_blast = pd.read_csv('blast_ml_blast.csv')  # Should have Subject, BLAST Score
+    df_ml = pd.DataFrame({'ID': seqid, 'Sequence': seq, 'ML_Score': df_pred['ML_Score']})
+
+    # Merge on sequence ID and fill missing BLAST Score with 0
+    df_combined = pd.merge(df_ml, df_blast, left_on='ID', right_on='Subject', how='left')
+    df_combined['BLAST Score'] = df_combined['BLAST Score'].fillna(0)
+    df_combined['Combined Score'] = df_combined['ML_Score'] + df_combined['BLAST Score']
+    df_combined['Prediction'] = df_combined['Combined Score'].apply(lambda x: 'Urinary' if x > Threshold else 'Non-Urinary')
+    df_combined = df_combined.drop(columns=['Subject'])
+
+    if dplay == 1:
+        df_combined = df_combined.loc[df_combined.Prediction == "Urinary"]
+    df_combined = round(df_combined, 3)
+    df_combined.to_csv(result_filename, index=None)
+    os.remove('seq.aac')
+    os.remove('seq.pred')
+    os.remove('RES_1_6_6.out')
+    os.remove('blast_ml_blast.csv')
+    os.remove('Sequence_1')
+    os.remove('logs.log')
+
+elif Model==3:  # ML+MERCI (positive motif)
+    print("Running ML+MERCI (positive motif) model...")
+    if os.path.exists('envfile'):
+        with open('envfile', 'r') as file:
+            data = file.readlines()
+        output = []
+        for line in data:
+            if not "#" in line:
+                output.append(line)
+        if len(output) >= 4: 
+            merci = output[2].split(':',1)[1].strip()
+            motifs_p = output[3].split(':',1)[1].strip()
+        else:
+            print("====================================================================================================")
+            print("Error: Please provide paths for MERCI and positive motif file", file=sys.stderr)
+            print("====================================================================================================")
+            sys.exit()
+    else:
+        print("====================================================================================================")
+        print("Error: Please provide the '{}', which comprises paths for MERCI".format('envfile'), file=sys.stderr)
+        print("====================================================================================================")
+        sys.exit()
+    aac_comp(seq,'seq.aac')
+    os.system("perl -pi -e 's/,$//g' seq.aac")
+    standardize_aac('seq.aac', 'seq.aac')
+    prediction('seq.aac','./progs/SVM_model','seq.pred')
+    print("Running MERCI (positive motifs)...")
+    os.system(f"{merci} -p Sequence_1 -i {motifs_p} -o merci_p.txt")
+    MERCI_Processor_p('merci_p.txt','merci_output_p.csv',seqid)
+    Merci_after_processing_p('merci_output_p.csv','merci_hybrid_p.csv')
+    df_pred = pd.read_csv('seq.pred', header=None)
+    df_merci = pd.read_csv('merci_hybrid_p.csv')
+    df_ml = pd.DataFrame({'ID': seqid, 'Sequence': seq, 'ML_Score': df_pred[0]})
+    df_combined = pd.concat([df_ml, df_merci['MERCI Score Pos']], axis=1)
+    df_combined['Combined Score'] = df_combined['ML_Score'] + df_combined['MERCI Score Pos']
+    df_combined['Prediction'] = df_combined['Combined Score'].apply(lambda x: 'Urinary' if x > Threshold else 'Non-Urinary')
+    if dplay == 1:
+        df_combined = df_combined.loc[df_combined.Prediction == "Urinary"]
+    df_combined = round(df_combined, 3)
+    df_combined.to_csv(result_filename, index=None)
+    os.remove('seq.aac')
+    os.remove('seq.pred')
+    os.remove('merci_output_p.csv')
+    os.remove('merci_hybrid_p.csv')
+    os.remove('merci_p.txt')
+    os.remove('Sequence_1')
+    os.remove('logs.log')
+
+else:  # Model==4: Hybrid (ML+MERCI+BLAST)
     print("Running Hybrid model...")
     if os.path.exists('envfile'):
         with open('envfile', 'r') as file:
@@ -446,6 +555,7 @@ else:
     os.remove('merci_p.txt')
     os.remove('merci_n.txt')
     os.remove('Sequence_1')
+    os.remove('logs.log')
 
 print("="*100)
 print('\nThanks for using UriPred. Your results are stored in file :',result_filename,'\n')
