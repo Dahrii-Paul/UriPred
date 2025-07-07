@@ -1,4 +1,4 @@
-# UriPred
+# UriPred (Urinary Protein Predictor)
 A method for predicting urinary proteins
 
 # Introduction
