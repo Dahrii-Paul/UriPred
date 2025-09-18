@@ -1,22 +1,12 @@
 # UriPred (Urinary Protein Predictor)
-A method for predicting urinary proteins
+A tool to predict the urinary proteins.
 
 # Introduction
-UriPred is developed for predicting, mapping and scanning urinary proteins or peptides. This page provide information about standalone version of UriPred.
-
-## Conda Installation
-Conda forge version is also available for easy installation and usage of this tool. The following command is required to install the package 
-```
-conda install conda-forge::uripred
-```
-To know about the available option for the conda package, type the following command:
-```
-uripred -h
-```
+UriPred is developed for predicting, mapping and scanning urinary proteins or peptides. This page provides information about standalone version of the tool.
 
 # Standalone
 
-Standalone version of UriPred is written in python3 and the following libraries are necessary for a successful run:
+Python3 is used to develop a standalone version of UriPred with the following necessary libraries for a successful run:
 
 - pycaret
 - scikit-learn
@@ -26,7 +16,7 @@ Standalone version of UriPred is written in python3 and the following libraries 
 
 **USAGE** 
 
-To know about the available option for the standalone, type the following command:
+Type the following commands to explore the options of the tool:
 ```
 uripred.py -h
 ```
@@ -35,7 +25,7 @@ To run the example, type the following command:
 uripred.py -i protein.fa
 
 ```
-where protein.fa is a input FASTA file. This will predict urinary proteins in FASTA format. It will use other parameters by default. It will save output in "outfile.csv" in CSV (comma separated variables).
+Where protein.fa is a input FASTA file  will predict the urinary proteins with  default parameters. The output file  "outfile.csv"  (comma separated variables).
 
 **Full Usage**: 
 ```
@@ -44,7 +34,7 @@ usage: uripred.py [-h]
                      [-i INPUT]
                      [-o OUTPUT]
                      [-t THRESHOLD]
-                     [-m {1,2}] 
+                     [-m {1,2,3,4}] 
                      [-d {1,2}]
 ```
 ```
@@ -61,46 +51,49 @@ optional arguments:
   -t THRESHOLD, --threshold THRESHOLD
                         Threshold: Value between 0 to 1 by default 0.6
   -m {1,2}, -- model Model
-                        Model: 1: AAC based SVM, 2: Hybrid, by default 1
+                        Model: 1: AAC based SVM, 2: ML+BLAST, 3: ML+MERCI (positive motifs) 4: Hybrid,
+                        by default 1
   -d {1,2}, --display {1,2}
                         Display: 1:Urinary proteins, 2: All proteins, by
                         default 2
 
 ```
 
-**Input File**: It allow users to provide input in two format; i) FASTA format (standard) (e.g. peptide.fa) and ii) Simple Format. In case of simple format, file should have one peptide sequence in a single line in single letter code (eg. peptide.seq). 
+> **Input File**: Allows users to provide input in two format; i) FASTA format (standard) (e.g. peptide.fa). ii) If input is not in FASTA,  each line is considered to be a peptide/ Protein sequence.
 
-**Output File**: Program will save result in CSV format, in case user do not provide output file name, it will be stored in outfile.csv.
+> **Output File**: If user do not name the output file, by default the output file is named as outfile.csv. 
+Program will save result in CSV format, in case user do not provide output file name, it will be stored in outfile.csv.
 
-**Threshold**: User should provide threshold between 0 and 1, please note score is proportional to urinary potential of proteins/peptide.
+> **Threshold**: The default threshold = 0.6 and the users may assign the threshold between 0 and 1. 
+User should provide threshold between 0 and 1, please note score is proportional to urinary potential of proteins/peptide.
 
-**Models**: In this program, two models have been incorporated;  
-  i) Model1 for predicting given input peptide/protein sequence as urinary and non-urinary peptide/proteins using SVM-RBF based on amino-acid composition of the peptide/proteins; 
-
-  ii) Model2 for predicting given input peptide/protein sequence as urinary and non-urinary peptide/proteins using Hybrid approach, which is the ensemble of Support Vector Machine + BLAST + MERCI. It combines the scores generated from machine learning (SVM), MERCI, and BLAST as Hybrid Score, and the prediction is based on Hybrid Score.
+> **Models**: The tool consists of  two models: 
+>  * **i) Model-1** _predicts the given input sequences (peptide/protein) as urinary and non-urinary using SVM-RBF based on amino-acid composition of the sequences_.
+>  * **ii) Model-2** _predicts the given input sequences (peptide/protein) as urinary and non-urinary using Hybrid approach(SVM + BLAST). The prediction is based on the hybrid score (combined scores of  SVM, and BLAST)_.
+>  * **iii) Model-3** _predicts the given input sequences using Hybrid approach(SVM + MERCI (positive motifs)). The prediction is based on the hybrid score (combined scores of  SVM, and MERCI)_.
+>  * **iv) Model-4** _predicts the given input sequences using Hybrid approach(SVM + MERCI + BLAST). The prediction is based on the hybrid score (combined scores of  SVM, MERCI, and BLAST)_.
 
 
 UriPred Package Files
 =======================
-It contain following files, brief description of these files given below
+The brief descriptions of the files of the tool are given below:
 
 LICENSE       	: License information
 
-envfile : This file provide the path information for BLAST and MERCI commands ,and data 
-          required to run BLAST and MERCI
+envfile : The file provide the path information for BLAST and MERCI commands ,and data required to run BLAST and MERCI
 
-Database: This folder contains the blast database
+Database: The folder contains the blast database
 
-progs : This folder contains the program to run MERCI
+progs : The folder contains the program to run MERCI
 
-README.md     	: This file provide information about this package
+README.md     	: The file provide information about the package
 
-uripred.py 	: Main python program 
+uripred.py 	: Main python program
 
 SVM_model        : Model file required for running Machine-learning model
 
 
-protein.fa	: Example file contain protein sequences in FASTA format 
+protein.fa	: The file contain protein sequences in FASTA format
 
 # Reference
 Dr. Amouda's Lab
