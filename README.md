@@ -95,5 +95,5 @@ SVM_model        : Model file required for running Machine-learning model
 
 protein.fa	: The file contain protein sequences in FASTA format
 
-# Reference
-Dr. Amouda's Lab
+# Cite us
+D. Paul, V.S.P. Sinnarasan, R. Das, M.M.R. Sheikh, S. Manickannan, A. Venkatesan, UriPred: Machine learning prediction of urinary proteins and identification of biomarkers for liver cancer, _Computational Biology and Chemistry_ (2026): 108946 (122). https://doi.org/10.1016/j.compbiolchem.2026.108946
